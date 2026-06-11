@@ -26,3 +26,40 @@ jobs:
       - name: Run-tests
         run: go test ./...
 
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        
+      - name:  Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.0"
+          
+      - name: install-dependencies
+        run:  go mod tidy
+
+      - name: Check Quality
+        run: gofmt w .
+  build:
+    runs-on: ubuntu-latest
+
+    needs: test
+
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        
+      - name:  Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.0"
+          
+      - name: install-dependencies
+        run:  go mod tidy
+
+      - name: Check Quality
+        run: go build -o app .
