@@ -22,7 +22,7 @@ func TestHomeHandler(t *testing.T) {
 	// defer closing the response body
 	defer result.Body.Close()
 
-	if result.StatusCode != http.StatusBadGateway {
+	if result.StatusCode != http.StatusOK {
 		t.Errorf("Home Handler not returning the correct status code %d", result.StatusCode)
 	}
 }
